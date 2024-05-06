@@ -41,6 +41,6 @@ def show_popup(image_path):
     Label(root, text="Kết quả dự đoán: {}".format(predicted_digit)).pack(side=TOP)
 
     root.mainloop()
-
-image_path = "D:\\Document move here\\Learning\\Hoc ki\\N2\\HK2 N2\\mang than kinh\\full set number\\ve.png"
+#add your image below ( use png for 90% right xD)
+image_path = ".png"
 show_popup(image_path)
