@@ -111,7 +111,7 @@ class NN:
         self.save_model(save_path)
 
         
-image_path = "D:\\Document move here\\Learning\\Hoc ki\\N2\\HK2 N2\\mang than kinh\\full set number\\ve.png"   
+image_path = ".png"   
 
 def train_model():
     (X_train, y_train), (X_test, y_test) = mnist.load_data()
