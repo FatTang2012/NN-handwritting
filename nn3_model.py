@@ -135,7 +135,7 @@ class NN:
         plt.imshow(current_image, interpolation='nearest')
         plt.show()
         
-image_path = "D:\\Document move here\\Learning\\Hoc ki\\N2\\HK2 N2\\mang than kinh\\full set number\\ve.png"   
+image_path = ".png"   
 # Load the MNIST dataset
 def train_model():
     # Load data
