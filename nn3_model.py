@@ -137,12 +137,19 @@ class NN:
         
 image_path = "D:\\Document move here\\Learning\\Hoc ki\\N2\\HK2 N2\\mang than kinh\\full set number\\ve.png"   
 # Load the MNIST dataset
-(X_train, y_train), (X_test, y_test) = mnist.load_data()
+def train_model():
+    # Load data
+    (X_train, y_train), (X_test, y_test) = mnist.load_data()
 
+    # Reshape and normalize the input data
+    X_train = X_train.reshape(X_train.shape[0], -1).T / 255.
 
-# Reshape and normalize the input data
-X_train = X_train.reshape(X_train.shape[0], -1).T / 255.
-X_test = X_test.reshape(X_test.shape[0], -1).T / 255.
+    # Create an instance of the NN class and train the model
+    nn = NN(X_train, y_train)
+    nn.fit(X_train, y_train, 512, 0.01, 200, 'save_model/my_model')
+
+if __name__ == "__main__":
+    train_model()
 
 #def one_hot(y):
 #    n_classes = len(np.unique(y_train))
@@ -152,16 +159,16 @@ X_test = X_test.reshape(X_test.shape[0], -1).T / 255.
 #print(a)
 #
 
-m=X_train.shape[1]
-permutation = list(np.random.permutation(m)) 
-X_shuffled = X_train[:, permutation]
-y_shuffled = y_train[permutation]
-mini_batch_size=3
-k=1
-mini_batch=[]
-mini_batch_X = X_shuffled[:, k*mini_batch_size:(k+1)*mini_batch_size]
-mini_batch_Y = y_shuffled[k*mini_batch_size:(k+1)*mini_batch_size]
-mini_batch.append((mini_batch_X, mini_batch_Y))
+#m=X_train.shape[1]
+#permutation = list(np.random.permutation(m)) 
+#X_shuffled = X_train[:, permutation]
+#y_shuffled = y_train[permutation]
+#mini_batch_size=3
+#k=1
+#mini_batch=[]
+#mini_batch_X = X_shuffled[:, k*mini_batch_size:(k+1)*mini_batch_size]
+#mini_batch_Y = y_shuffled[k*mini_batch_size:(k+1)*mini_batch_size]
+#mini_batch.append((mini_batch_X, mini_batch_Y))
 
 #index=20
 #img=X_train[:,index].reshape(28,28)*255
@@ -171,49 +178,49 @@ mini_batch.append((mini_batch_X, mini_batch_Y))
 #plt.show()
 
 # Create an instance of the NN class and train the model
-nn = NN(X_train, y_train)
-nn.fit(X_train, y_train, 512, 0.01, 10, 'save_model/my_model')
+#nn = NN(X_train, y_train)
+#nn.fit(X_train, y_train, 512, 0.01, 10, 'save_model/my_model')
 
-def digit_recognizer(image_path):
+#def digit_recognizer(image_path):
     # Đọc ảnh từ đường dẫn
-    image = plt.imread(image_path)
+   # image = plt.imread(image_path)
     # Chuyển ảnh thành dạng xám
-    gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+   # gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
     # Resize ảnh thành kích thước (28, 28)
-    resized_image = cv2.resize(gray_image, (28, 28))
+  #  resized_image = cv2.resize(gray_image, (300, 300))
     # Chuẩn hóa ảnh và chuyển thành vectơ cột
-    normalized_image = resized_image.reshape(-1, 1).astype('float32') / 255.
-    # Dự đoán chữ số từ ảnh
-    prediction = nn.predict(normalized_image)
-    return prediction
+   # normalized_image = resized_image.reshape(-1, 1).astype('float32') / 255.
+  #  # Dự đoán chữ số từ ảnh
+ #   prediction = nn.predict(normalized_image)
+#    return prediction
 
     
-def show_popup(image_path):
+#def show_popup(image_path):
     # Đọc ảnh từ đường dẫn
-    image = plt.imread(image_path)
+  #  image = plt.imread(image_path)
     # Chuyển ảnh thành dạng xám
-    gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+  #  gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
     # Reshape ảnh thành kích thước (784,)
-    reshaped_image = gray_image.reshape(1, -1).T  # Đảo ngược chiều của ảnh và chuyển thành vectơ cột
+   # reshaped_image = gray_image.reshape(1, -1).T  # Đảo ngược chiều của ảnh và chuyển thành vectơ cột
     # Chuẩn hóa ảnh
-    normalized_image = reshaped_image.astype('float32') / 255.
-    print("Kích thước của normalized_image:", normalized_image.shape)  # In ra kích thước của normalized_image
+    #normalized_image = reshaped_image.astype('float32') / 255.
+    #print("Kích thước của normalized_image:", normalized_image.shape)  # In ra kích thước của normalized_image
     # Dự đoán chữ số từ ảnh
-    predicted_digit = digit_recognizer(image_path)
+   # predicted_digit = digit_recognizer(image_path)
     # Tạo cửa sổ popup
-    root = Tk()
-    root.title("Kết quả dự đoán")
+   # root = Tk()
+    #root.title("Kết quả dự đoán")
     
     # Hiển thị ảnh trong popup
-    img = PhotoImage(file=image_path)
-    Label(root, image=img).pack(side=TOP)
+   # img = PhotoImage(file=image_path)
+  #  Label(root, image=img).pack(side=TOP)
 
     # Hiển thị kết quả dự đoán
-    Label(root, text="Kết quả dự đoán: {}".format(predicted_digit)).pack(side=TOP)
+ #   Label(root, text="Kết quả dự đoán: {}".format(predicted_digit)).pack(side=TOP)
 
-    root.mainloop()
+#    root.mainloop()
 
-show_popup(image_path)
+#show_popup(image_path)
 #iface = gr.Interface(
 #    fn=digit_recognizer,
 #    inputs=gr.Image(shape=(28,28), image_mode='L', invert_colors=True, source="canvas"),
